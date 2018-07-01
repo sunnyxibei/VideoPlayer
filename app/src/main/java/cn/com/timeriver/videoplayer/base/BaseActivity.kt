@@ -26,6 +26,9 @@ abstract class BaseActivity : AppCompatActivity() {
         runOnUiThread { toast(msg) }
     }
 
+    /**
+     * 注意学习reified和inline的使用方法
+     */
     protected inline fun <reified T : BaseActivity> startActivityAndFinish() {
         startActivity<T>()
         finish()

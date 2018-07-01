@@ -11,9 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".presenter.ui.activity.SplashActivity"
-            android:theme="@style/AppTheme.FullScreen">
+        <activity android:name=".presenter.ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".presenter.ui.activity.MainActivity" />
+        <activity android:name=".presenter.ui.activity.SettingsActivity" />
+        <activity android:name=".presenter.ui.activity.AboutActivity" />
     </application>
 
 </manifest>
