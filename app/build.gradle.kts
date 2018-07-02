@@ -42,6 +42,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
     implementation("com.android.support:appcompat-v7:27.1.1")
     implementation("com.android.support:design:27.1.1")
+    implementation("com.android.support:cardview-v7:27.1.1")
     implementation ("org.jetbrains.anko:anko:$anko_version")
     implementation ("com.roughike:bottom-bar:2.3.1")
     implementation("com.android.support.constraint:constraint-layout:1.1.2")
