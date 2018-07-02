@@ -13,6 +13,8 @@ import org.jetbrains.anko.startActivity
 
 class SettingsFragment : PreferenceFragment() {
 
+    val ABOUT = "about"
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         addPreferencesFromResource(R.xml.settings)
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -20,7 +22,7 @@ class SettingsFragment : PreferenceFragment() {
 
     override fun onPreferenceTreeClick(preferenceScreen: PreferenceScreen?, preference: Preference?): Boolean {
         when (preference?.key) {
-            "about" -> startActivity<AboutActivity>()
+            ABOUT -> startActivity<AboutActivity>()
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference)
     }

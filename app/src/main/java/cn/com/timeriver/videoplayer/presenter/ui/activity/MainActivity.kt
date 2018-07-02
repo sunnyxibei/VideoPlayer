@@ -5,7 +5,9 @@ import android.view.Menu
 import android.view.MenuItem
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.base.BaseActivity
+import cn.com.timeriver.videoplayer.util.FragmentFactory
 import cn.com.timeriver.videoplayer.util.ToolbarUtil
+import com.roughike.bottombar.BottomBar
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 
@@ -27,7 +29,12 @@ class MainActivity : BaseActivity(), ToolbarUtil {
 
     override fun initListener() {
         //初始化bottombar的监听
-        
+        val bottomBar = find<BottomBar>(R.id.bottomBar)
+        bottomBar.setOnTabSelectListener {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, FragmentFactory.instance.getFragment(it))
+                    .commit()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
