@@ -32,7 +32,7 @@ class MainActivity : BaseActivity(), ToolbarUtil {
         val bottomBar = find<BottomBar>(R.id.bottomBar)
         bottomBar.setOnTabSelectListener {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, FragmentFactory.instance.getFragment(it))
+                    .replace(R.id.container, FragmentFactory.instance.getFragment(it), it.toString())
                     .commit()
         }
     }
