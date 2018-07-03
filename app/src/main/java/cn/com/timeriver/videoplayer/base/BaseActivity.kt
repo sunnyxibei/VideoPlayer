@@ -2,10 +2,11 @@ package cn.com.timeriver.videoplayer.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
