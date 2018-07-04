@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version ("1.2.50")
+    kotlin("jvm") version ("1.2.51")
 }
 
 buildscript {
@@ -9,13 +9,13 @@ buildscript {
     }
 
     dependencies {
-        classpath(kotlin("gradle-plugin", "1.2.50"))
+        classpath(kotlin("gradle-plugin", "1.2.51"))
     }
 }
 
 dependencies {
     implementation(gradleKotlinDsl())
-    implementation(kotlin("stdlib-jdk8", "1.2.50"))
+    implementation(kotlin("stdlib-jdk8", "1.2.51"))
 }
 
 repositories {
