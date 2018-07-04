@@ -5,10 +5,8 @@ import android.support.v7.widget.RecyclerView
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.adapter.NewsAdapter
 import cn.com.timeriver.videoplayer.base.BaseFragment
-import cn.com.timeriver.videoplayer.model.NewsItem
 import cn.com.timeriver.videoplayer.util.URLProviderUtils
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import okhttp3.*
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.find

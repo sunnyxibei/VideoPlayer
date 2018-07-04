@@ -1,5 +1,5 @@
-apply {
-    plugin("kotlin")
+plugins {
+    kotlin("jvm") version ("1.2.50")
 }
 
 buildscript {
@@ -15,7 +15,7 @@ buildscript {
 
 dependencies {
     implementation(gradleKotlinDsl())
-    implementation(kotlin("stdlib", "1.2.50"))
+    implementation(kotlin("stdlib-jdk8", "1.2.50"))
 }
 
 repositories {

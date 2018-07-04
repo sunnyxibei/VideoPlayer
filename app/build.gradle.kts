@@ -1,4 +1,3 @@
-import org.gradle.kotlin.dsl.kotlin
 import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
 
 plugins {
@@ -36,11 +35,11 @@ android {
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*jar", "*aar"))))
     testImplementation(deps.test.junit)
     testImplementation(deps.test.runner)
     testImplementation(deps.test.espressoCore)
 
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*jar"))))
     implementation(deps.kotlin.stdlibJdk7)
     implementation(deps.support.compat)
     implementation(deps.support.design)
