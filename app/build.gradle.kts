@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar","*.aar"))))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     testImplementation(deps.test.junit)
     testImplementation(deps.test.runner)
     testImplementation(deps.test.espressoCore)
