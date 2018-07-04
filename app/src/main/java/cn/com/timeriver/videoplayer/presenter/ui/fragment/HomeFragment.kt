@@ -2,13 +2,14 @@ package cn.com.timeriver.videoplayer.presenter.ui.fragment
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.adapter.NewsAdapter
 import cn.com.timeriver.videoplayer.base.BaseFragment
+import cn.com.timeriver.videoplayer.model.NewsItem
 import cn.com.timeriver.videoplayer.util.URLProviderUtils
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import okhttp3.*
-import org.jetbrains.anko.debug
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.find
 import java.io.IOException
@@ -24,7 +25,7 @@ class HomeFragment : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = NewsAdapter()
 
-        //请求网络数据，并加载RecyclRecyclerView
+        //请求网络数据，并加载RecyclerView
         val client = OkHttpClient()
         val request = Request.Builder()
                 .url(URLProviderUtils.getHomeUrl(0, 20))
@@ -35,14 +36,10 @@ class HomeFragment : BaseFragment() {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                debug(response?.body().toString())
-                debug(5)
-                debug(5)
-                debug(5)
-                debug(5)
-                debug(5)
-                debug(5)
-                info("怎么会是")
+                val result = response?.body().toString()
+                info(result)
+                val gson = Gson()
+                gson.fromJson(result, object : TypeToken<List<NewsItem>>() {}.type)
             }
 
         })

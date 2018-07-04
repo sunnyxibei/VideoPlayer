@@ -32,7 +32,7 @@ android {
     }
     externalNativeBuild {
         cmake {
-            path = File(rootDir,"app/CMakeLists.txt")
+            path = File(rootDir, "app/CMakeLists.txt")
         }
     }
 }
@@ -45,8 +45,9 @@ dependencies {
     implementation("com.android.support:cardview-v7:27.1.1")
     implementation("com.github.bumptech.glide:glide:4.7.1")
     implementation("com.squareup.okhttp3:okhttp:3.10.0")
-    implementation ("org.jetbrains.anko:anko:$anko_version")
-    implementation ("com.roughike:bottom-bar:2.3.1")
+    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("org.jetbrains.anko:anko:$anko_version")
+    implementation("com.roughike:bottom-bar:2.3.1")
     implementation("com.android.support.constraint:constraint-layout:1.1.2")
     testImplementation("junit:junit:4.12")
     androidTestImplementation("com.android.support.test:runner:1.0.2")
