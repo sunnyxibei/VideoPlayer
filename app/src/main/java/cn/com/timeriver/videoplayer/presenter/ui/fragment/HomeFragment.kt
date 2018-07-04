@@ -39,7 +39,7 @@ class HomeFragment : BaseFragment() {
                 val result = response?.body().toString()
                 info(result)
                 val gson = Gson()
-                gson.fromJson(result, object : TypeToken<List<NewsItem>>() {}.type)
+                //gson.fromJson(result, object : TypeToken<List<NewsItem>>() {}.type)
             }
 
         })

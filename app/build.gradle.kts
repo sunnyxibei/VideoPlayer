@@ -1,3 +1,5 @@
+import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
+
 extra.set("kotlin_version", "1.2.50")
 extra.set("anko_version", "0.10.5")
 val kotlin_version: String by extra
@@ -39,7 +41,7 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*jar"))))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
+    implementation(deps.kotlin.stdlibJdk7)
     implementation("com.android.support:appcompat-v7:27.1.1")
     implementation("com.android.support:design:27.1.1")
     implementation("com.android.support:cardview-v7:27.1.1")
