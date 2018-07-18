@@ -11,6 +11,11 @@ import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.presenter.ui.activity.AboutActivity
 import org.jetbrains.anko.startActivity
 
+/**
+ * 直接继承系统的PreferenceFragment
+ * 结合R.xml.settings
+ * 可以迅速实现一个Settings界面
+ */
 class SettingsFragment : PreferenceFragment() {
 
     val ABOUT = "about"
