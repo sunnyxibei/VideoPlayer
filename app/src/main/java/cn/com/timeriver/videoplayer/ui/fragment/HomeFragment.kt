@@ -45,10 +45,10 @@ class HomeFragment : BaseFragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 //当前滑动已经停止
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    //且最后一行（Footer）已经显示出来
                     val layoutManager = mNewsList.layoutManager
                     if (layoutManager is LinearLayoutManager) {
                         val manager: LinearLayoutManager = layoutManager
+                        //且最后一行（Footer）已经显示出来
                         if (manager.findLastVisibleItemPosition() == mNewsItems.size) {
                             loadMoreData()
                         }

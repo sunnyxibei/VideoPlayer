@@ -1,5 +1,7 @@
 package cn.com.timeriver.videoplayer.ui.activity
 
+import android.Manifest
+import android.os.Build
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -16,6 +18,14 @@ import org.jetbrains.anko.startActivity
  */
 class MainActivity : BaseActivity(), ToolbarUtil {
 
+    companion object {
+        private val REQUEST_MUST_PERMISSION = 1
+        private val MUST_PERMISSION = arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+    }
+
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     override fun getLayoutId(): Int {
@@ -23,8 +33,15 @@ class MainActivity : BaseActivity(), ToolbarUtil {
     }
 
     override fun initData() {
+        requestMustPermission()
         initMainToolbar()
         setSupportActionBar(toolbar)
+    }
+
+    private fun requestMustPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(MUST_PERMISSION, REQUEST_MUST_PERMISSION)
+        }
     }
 
     override fun initListener() {
