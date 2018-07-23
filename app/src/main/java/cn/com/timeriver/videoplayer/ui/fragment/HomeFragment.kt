@@ -8,21 +8,18 @@ import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.adapter.NewsAdapter
 import cn.com.timeriver.videoplayer.base.BaseFragment
 import cn.com.timeriver.videoplayer.model.NewsItem
+import cn.com.timeriver.videoplayer.presenter.contract.HomeContract
+import cn.com.timeriver.videoplayer.presenter.impl.HomePresenter
 import cn.com.timeriver.videoplayer.util.ThreadUtil
-import cn.com.timeriver.videoplayer.util.URLProviderUtils
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import okhttp3.*
-import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.find
 import org.jetbrains.anko.support.v4.onUiThread
-import java.io.IOException
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), HomeContract.View {
 
     private lateinit var mNewsList: RecyclerView
     private lateinit var mRefreshLayout: SwipeRefreshLayout
     private val mNewsItems = arrayListOf<NewsItem>()
+    private lateinit var mPresenter: HomePresenter
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
@@ -37,7 +34,7 @@ class HomeFragment : BaseFragment() {
         //刷新监听
         mRefreshLayout.setColorSchemeColors(Color.RED, Color.YELLOW, Color.GREEN)
         mRefreshLayout.setOnRefreshListener {
-            loadData(0)
+            mPresenter.loadData(0)
         }
         //加载更多监听
         mNewsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -50,59 +47,33 @@ class HomeFragment : BaseFragment() {
                         val manager: LinearLayoutManager = layoutManager
                         //且最后一行（Footer）已经显示出来
                         if (manager.findLastVisibleItemPosition() == mNewsItems.size) {
-                            loadMoreData()
+                            mPresenter.loadData(mNewsItems.size, false)
                         }
                     }
                 }
             }
-
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-
-            }
         })
-    }
-
-    private fun loadMoreData() {
-        loadData(mNewsItems.size, false)
     }
 
     override fun initData() {
-        loadData(0)
+        mPresenter = HomePresenter(this)
+        mPresenter.loadData(0)
     }
 
-    private fun loadData(offset: Int, reset: Boolean = true) {
-        //请求网络数据，并加载RecyclerView
-        val client = OkHttpClient()
-        val request = Request.Builder()
-                .url(URLProviderUtils.getHomeUrl(offset, 20))
-                .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
-                myToast("fetch data fail")
-                ThreadUtil.runOnMainThread(Runnable { mRefreshLayout.isRefreshing = false })
+    override fun showOnSuccess(newsItems: List<NewsItem>, reset: Boolean) {
+        onUiThread {
+            mRefreshLayout.isRefreshing = false
+            myToast("fetch data success")
+            if (reset) {
+                mNewsItems.clear()
             }
-
-            override fun onResponse(call: Call?, response: Response?) {
-                ThreadUtil.runOnMainThread(Runnable { mRefreshLayout.isRefreshing = false })
-                myToast("fetch data success")
-                val result = response?.body()?.string()
-                info(result)
-                val newsItems: List<NewsItem> = Gson().fromJson<List<NewsItem>>(result, object : TypeToken<List<NewsItem>>() {}.type)
-                newsItems.let {
-                    onUiThread {
-                        refreshNewsList(newsItems, reset)
-                    }
-                }
-            }
-
-        })
-    }
-
-    private fun refreshNewsList(newsItems: List<NewsItem>, reset: Boolean = true) {
-        if (reset) {
-            mNewsItems.clear()
+            mNewsItems.addAll(newsItems)
+            mNewsList.adapter.notifyDataSetChanged()
         }
-        mNewsItems.addAll(newsItems)
-        mNewsList.adapter.notifyDataSetChanged()
+    }
+
+    override fun showOnFailure() {
+        myToast("fetch data fail")
+        ThreadUtil.runOnMainThread(Runnable { mRefreshLayout.isRefreshing = false })
     }
 }
