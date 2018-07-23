@@ -3,7 +3,7 @@ package cn.com.timeriver.videoplayer.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import cn.com.timeriver.videoplayer.model.NewsItem
+import cn.com.timeriver.videoplayer.model.bean.NewsItem
 import cn.com.timeriver.videoplayer.widget.LoadMoreView
 import cn.com.timeriver.videoplayer.widget.NewsCard
 

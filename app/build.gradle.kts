@@ -30,7 +30,7 @@ dependencies {
     testImplementation(deps.test.runner)
     testImplementation(deps.test.espressoCore)
 
-    implementation(deps.kotlin.stdlibJdk7)
+    implementation(deps.kotlin.stdlib)
     implementation(deps.support.compat)
     implementation(deps.support.design)
     implementation(deps.support.cardview)

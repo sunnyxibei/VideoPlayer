@@ -16,7 +16,7 @@ object deps {
     }
 
     object kotlin {
-        const   val stdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+        const   val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     }
 
     object support {

@@ -7,10 +7,9 @@ import android.support.v7.widget.RecyclerView
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.adapter.NewsAdapter
 import cn.com.timeriver.videoplayer.base.BaseFragment
-import cn.com.timeriver.videoplayer.model.NewsItem
+import cn.com.timeriver.videoplayer.model.bean.NewsItem
 import cn.com.timeriver.videoplayer.presenter.contract.HomeContract
 import cn.com.timeriver.videoplayer.presenter.impl.HomePresenter
-import cn.com.timeriver.videoplayer.util.ThreadUtil
 import org.jetbrains.anko.support.v4.find
 import org.jetbrains.anko.support.v4.onUiThread
 
@@ -74,6 +73,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     override fun showOnFailure() {
         myToast("fetch data fail")
-        ThreadUtil.runOnMainThread(Runnable { mRefreshLayout.isRefreshing = false })
+        onUiThread { mRefreshLayout.isRefreshing = false }
     }
 }

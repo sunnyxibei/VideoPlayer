@@ -1,4 +1,4 @@
-package cn.com.timeriver.videoplayer.model
+package cn.com.timeriver.videoplayer.model.bean
 
 data class NewsItem(
         val type: String,
