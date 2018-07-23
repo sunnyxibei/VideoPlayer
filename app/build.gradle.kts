@@ -15,21 +15,11 @@ android {
         versionCode = 1
         versionName = "1.0.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-            cmake {
-                cppFlags.add("")
-            }
-        }
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
-    }
-    externalNativeBuild {
-        cmake {
-            path = File(rootDir, "app/CMakeLists.txt")
         }
     }
 }
