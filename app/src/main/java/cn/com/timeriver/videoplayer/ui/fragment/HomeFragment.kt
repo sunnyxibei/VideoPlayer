@@ -34,18 +34,47 @@ class HomeFragment : BaseFragment() {
 
         mNewsList.layoutManager = LinearLayoutManager(context)
         mNewsList.adapter = NewsAdapter(mNewsItems)
-
+        //刷新监听
         mRefreshLayout.setColorSchemeColors(Color.RED, Color.YELLOW, Color.GREEN)
         mRefreshLayout.setOnRefreshListener {
-            initData()
+            loadData(0)
         }
+        //加载更多监听
+        mNewsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                //当前滑动已经停止
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    //且最后一行（Footer）已经显示出来
+                    val layoutManager = mNewsList.layoutManager
+                    if (layoutManager is LinearLayoutManager) {
+                        val manager: LinearLayoutManager = layoutManager
+                        if (manager.findLastVisibleItemPosition() == mNewsItems.size) {
+                            loadMoreData()
+                        }
+                    }
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+
+            }
+        })
+    }
+
+    private fun loadMoreData() {
+        loadData(mNewsItems.size, false)
     }
 
     override fun initData() {
+        loadData(0)
+    }
+
+    private fun loadData(offset: Int, reset: Boolean = true) {
         //请求网络数据，并加载RecyclerView
         val client = OkHttpClient()
         val request = Request.Builder()
-                .url(URLProviderUtils.getHomeUrl(0, 20))
+                .url(URLProviderUtils.getHomeUrl(offset, 20))
                 .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call?, e: IOException?) {
@@ -61,7 +90,7 @@ class HomeFragment : BaseFragment() {
                 val newsItems: List<NewsItem> = Gson().fromJson<List<NewsItem>>(result, object : TypeToken<List<NewsItem>>() {}.type)
                 newsItems.let {
                     onUiThread {
-                        refreshNewsList(newsItems)
+                        refreshNewsList(newsItems, reset)
                     }
                 }
             }
@@ -69,8 +98,10 @@ class HomeFragment : BaseFragment() {
         })
     }
 
-    private fun refreshNewsList(newsItems: List<NewsItem>) {
-        mNewsItems.clear()
+    private fun refreshNewsList(newsItems: List<NewsItem>, reset: Boolean = true) {
+        if (reset) {
+            mNewsItems.clear()
+        }
         mNewsItems.addAll(newsItems)
         mNewsList.adapter.notifyDataSetChanged()
     }

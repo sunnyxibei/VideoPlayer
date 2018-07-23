@@ -4,9 +4,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import cn.com.timeriver.videoplayer.model.NewsItem
+import cn.com.timeriver.videoplayer.widget.LoadMoreView
 import cn.com.timeriver.videoplayer.widget.NewsCard
 
 class NewsAdapter() : RecyclerView.Adapter<NewsHolder>() {
+
+    companion object {
+        private const val TYPE_NORMAL = 0
+        private const val TYPE_FOOTER = 1
+    }
 
     private lateinit var data: List<NewsItem>
 
@@ -15,24 +21,36 @@ class NewsAdapter() : RecyclerView.Adapter<NewsHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return data.size + 1
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == data.size) TYPE_FOOTER else TYPE_NORMAL
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsHolder {
-        return NewsHolder(NewsCard(parent.context))
+        val context = parent.context
+        return if (viewType == TYPE_NORMAL) {
+            NewsHolder(NewsCard(context))
+        } else {
+            NewsHolder(LoadMoreView(context))
+        }
     }
 
 
     override fun onBindViewHolder(holder: NewsHolder, position: Int) {
-        val newsItem = data[position]
-//        holder.card.setCardAuthor(newsItem.title)
-//        holder.card.setCardComposition(newsItem.description)
-        holder.card.setCardTag(newsItem.type)
-        holder.card.setCardBackground(newsItem.posterPic)
+        if (getItemViewType(position) == TYPE_NORMAL) {
+            val card: NewsCard = holder.itemView as NewsCard
+            val newsItem = data[position]
+//        card.setCardAuthor(newsItem.title)
+//        card.setCardComposition(newsItem.description)
+            card.setCardTag(newsItem.type)
+            card.setCardBackground(newsItem.posterPic)
+        }
     }
 
 }
 
 class NewsHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-    val card: NewsCard = itemView as NewsCard
+
 }
