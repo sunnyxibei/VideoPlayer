@@ -21,6 +21,7 @@ abstract class BaseFragment : Fragment(), AnkoLogger {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initView()
         initData()
         initListener()
     }
@@ -33,6 +34,9 @@ abstract class BaseFragment : Fragment(), AnkoLogger {
     }
 
     abstract fun getLayoutId(): Int
+
+    protected open fun initView() {
+    }
 
     protected open fun initData() {
     }

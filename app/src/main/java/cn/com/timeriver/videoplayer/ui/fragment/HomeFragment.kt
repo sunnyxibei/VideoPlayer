@@ -1,11 +1,14 @@
 package cn.com.timeriver.videoplayer.ui.fragment
 
+import android.graphics.Color
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.adapter.NewsAdapter
 import cn.com.timeriver.videoplayer.base.BaseFragment
 import cn.com.timeriver.videoplayer.model.NewsItem
+import cn.com.timeriver.videoplayer.util.ThreadUtil
 import cn.com.timeriver.videoplayer.util.URLProviderUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -17,8 +20,25 @@ import java.io.IOException
 
 class HomeFragment : BaseFragment() {
 
+    private lateinit var mNewsList: RecyclerView
+    private lateinit var mRefreshLayout: SwipeRefreshLayout
+    private val mNewsItems = arrayListOf<NewsItem>()
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
+    }
+
+    override fun initView() {
+        mNewsList = find(R.id.list_news)
+        mRefreshLayout = find(R.id.refresh)
+
+        mNewsList.layoutManager = LinearLayoutManager(context)
+        mNewsList.adapter = NewsAdapter(mNewsItems)
+
+        mRefreshLayout.setColorSchemeColors(Color.RED, Color.YELLOW, Color.GREEN)
+        mRefreshLayout.setOnRefreshListener {
+            initData()
+        }
     }
 
     override fun initData() {
@@ -29,16 +49,19 @@ class HomeFragment : BaseFragment() {
                 .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call?, e: IOException?) {
-                myToast("fail to get data")
+                myToast("fetch data fail")
+                ThreadUtil.runOnMainThread(Runnable { mRefreshLayout.isRefreshing = false })
             }
 
             override fun onResponse(call: Call?, response: Response?) {
+                ThreadUtil.runOnMainThread(Runnable { mRefreshLayout.isRefreshing = false })
+                myToast("fetch data success")
                 val result = response?.body()?.string()
                 info(result)
                 val newsItems: List<NewsItem> = Gson().fromJson<List<NewsItem>>(result, object : TypeToken<List<NewsItem>>() {}.type)
                 newsItems.let {
                     onUiThread {
-                        initNewsList(newsItems)
+                        refreshNewsList(newsItems)
                     }
                 }
             }
@@ -46,9 +69,9 @@ class HomeFragment : BaseFragment() {
         })
     }
 
-    private fun initNewsList(newsItems: List<NewsItem>) {
-        val newsList = find<RecyclerView>(R.id.list_news)
-        newsList.layoutManager = LinearLayoutManager(context)
-        newsList.adapter = NewsAdapter(newsItems)
+    private fun refreshNewsList(newsItems: List<NewsItem>) {
+        mNewsItems.clear()
+        mNewsItems.addAll(newsItems)
+        mNewsList.adapter.notifyDataSetChanged()
     }
 }
