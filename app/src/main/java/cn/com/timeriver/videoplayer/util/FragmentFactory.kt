@@ -2,10 +2,10 @@ package cn.com.timeriver.videoplayer.util
 
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.base.BaseFragment
-import cn.com.timeriver.videoplayer.presenter.ui.fragment.HomeFragment
-import cn.com.timeriver.videoplayer.presenter.ui.fragment.MvFragment
-import cn.com.timeriver.videoplayer.presenter.ui.fragment.VbangFragment
-import cn.com.timeriver.videoplayer.presenter.ui.fragment.YuedanFragment
+import cn.com.timeriver.videoplayer.ui.fragment.HomeFragment
+import cn.com.timeriver.videoplayer.ui.fragment.MvFragment
+import cn.com.timeriver.videoplayer.ui.fragment.VbangFragment
+import cn.com.timeriver.videoplayer.ui.fragment.YuedanFragment
 
 /**
  * 延迟加载+线程安全

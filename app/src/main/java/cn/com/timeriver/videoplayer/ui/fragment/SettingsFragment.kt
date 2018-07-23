@@ -1,4 +1,4 @@
-package cn.com.timeriver.videoplayer.presenter.ui.fragment
+package cn.com.timeriver.videoplayer.ui.fragment
 
 import android.os.Bundle
 import android.preference.Preference
@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cn.com.timeriver.videoplayer.R
-import cn.com.timeriver.videoplayer.presenter.ui.activity.AboutActivity
+import cn.com.timeriver.videoplayer.ui.activity.AboutActivity
 import org.jetbrains.anko.startActivity
 
 /**

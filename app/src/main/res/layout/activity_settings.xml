@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/settings_fragment"
-        class="cn.com.timeriver.videoplayer.presenter.ui.fragment.SettingsFragment"
+        class="cn.com.timeriver.videoplayer.ui.fragment.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

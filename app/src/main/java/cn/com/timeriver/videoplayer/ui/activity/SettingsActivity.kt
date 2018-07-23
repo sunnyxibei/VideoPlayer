@@ -1,4 +1,4 @@
-package cn.com.timeriver.videoplayer.presenter.ui.activity
+package cn.com.timeriver.videoplayer.ui.activity
 
 import android.preference.PreferenceManager
 import android.support.v7.widget.Toolbar

@@ -4,6 +4,8 @@
     package="cn.com.timeriver.videoplayer">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,16 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presenter.ui.activity.SplashActivity">
+        <activity android:name="cn.com.timeriver.videoplayer.ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presenter.ui.activity.MainActivity" />
-        <activity android:name=".presenter.ui.activity.SettingsActivity" />
-        <activity android:name=".presenter.ui.activity.AboutActivity" />
+        <activity android:name="cn.com.timeriver.videoplayer.ui.activity.MainActivity" />
+        <activity android:name="cn.com.timeriver.videoplayer.ui.activity.SettingsActivity" />
+        <activity android:name="cn.com.timeriver.videoplayer.ui.activity.AboutActivity" />
     </application>
 
 </manifest>

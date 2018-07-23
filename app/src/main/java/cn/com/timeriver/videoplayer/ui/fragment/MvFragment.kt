@@ -1,4 +1,4 @@
-package cn.com.timeriver.videoplayer.presenter.ui.fragment
+package cn.com.timeriver.videoplayer.ui.fragment
 
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.base.BaseFragment
