@@ -9,10 +9,12 @@ import org.jetbrains.anko.find
 
 class SettingsActivity : BaseActivity(), ToolbarUtil {
 
-    override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
+    override lateinit var toolbar: Toolbar
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_settings
+    override fun getLayoutId() = R.layout.activity_settings
+
+    override fun initView() {
+        toolbar = find(R.id.toolbar)
     }
 
     override fun initData() {

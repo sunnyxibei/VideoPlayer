@@ -14,6 +14,8 @@ abstract class BaseListAdapter<ITEMBEAN>(itemBean: List<ITEMBEAN>) : RecyclerVie
     }
 
     private var data: List<ITEMBEAN> = itemBean
+    //定义函数类型变量
+    private var listener: ((itemBean: ITEMBEAN) -> Unit)? = null
 
     override fun getItemCount(): Int {
         return data.size + 1
@@ -36,7 +38,14 @@ abstract class BaseListAdapter<ITEMBEAN>(itemBean: List<ITEMBEAN>) : RecyclerVie
         if (getItemViewType(position) == TYPE_NORMAL) {
             val item = data[position]
             setLocalData(holder, item)
+            holder.itemView.setOnClickListener {
+                listener?.invoke(item)
+            }
         }
+    }
+
+    fun setOnItemClickListener(listener: ((itemBean: ITEMBEAN) -> Unit)) {
+        this.listener = listener
     }
 
     abstract fun getLocalItemView(context: Context?): View?

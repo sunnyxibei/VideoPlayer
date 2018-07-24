@@ -18,9 +18,7 @@ class MvFragment : BaseFragment(), MvContract.View {
     private lateinit var mPagerMv: ViewPager
     private val mPresenter by lazy { MvPresenter(this) }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_mv
-    }
+    override fun getLayoutId() = R.layout.fragment_mv
 
     override fun initView() {
         mTabMv = find(R.id.tab_layout_mv)

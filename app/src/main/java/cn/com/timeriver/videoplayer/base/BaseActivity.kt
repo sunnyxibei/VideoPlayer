@@ -11,9 +11,12 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
+        initView()
         initData()
         initListener()
     }
+
+    abstract fun initView()
 
     abstract fun getLayoutId(): Int
 

@@ -18,18 +18,20 @@ import org.jetbrains.anko.startActivity
  */
 class MainActivity : BaseActivity(), ToolbarUtil {
 
+    override lateinit var toolbar: Toolbar
+
     companion object {
-        private val REQUEST_MUST_PERMISSION = 1
+        private const val REQUEST_MUST_PERMISSION = 1
         private val MUST_PERMISSION = arrayOf(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
     }
 
-    override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
+    override fun getLayoutId() = R.layout.activity_main
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_main
+    override fun initView() {
+        toolbar = find(R.id.toolbar)
     }
 
     override fun initData() {

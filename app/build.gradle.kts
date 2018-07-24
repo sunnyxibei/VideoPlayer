@@ -1,4 +1,5 @@
 import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
+import org.jetbrains.kotlin.config.AnalysisFlag.Flags.experimental
 
 plugins {
     id("com.android.application")
@@ -21,6 +22,9 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
+    }
+    androidExtensions {
+        isExperimental = true
     }
 }
 

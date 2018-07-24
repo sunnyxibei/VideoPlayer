@@ -12,7 +12,7 @@ class MvPagerAdapter(var mvAreaBeans: List<MvAreaBean>, manager: FragmentManager
     override fun getItem(position: Int): Fragment {
         val mvAreaBean = mvAreaBeans[position]
         val args = Bundle()
-        args.putSerializable("args", mvAreaBean)
+        args.putParcelable("args", mvAreaBean)
         return MvInnerFragment.getInstance(args)
     }
 

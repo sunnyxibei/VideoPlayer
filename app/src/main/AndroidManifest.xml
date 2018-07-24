@@ -25,6 +25,7 @@
         <activity android:name="cn.com.timeriver.videoplayer.ui.activity.MainActivity" />
         <activity android:name="cn.com.timeriver.videoplayer.ui.activity.SettingsActivity" />
         <activity android:name="cn.com.timeriver.videoplayer.ui.activity.AboutActivity" />
+        <activity android:name=".ui.activity.VideoPlayerActivity" />
     </application>
 
 </manifest>

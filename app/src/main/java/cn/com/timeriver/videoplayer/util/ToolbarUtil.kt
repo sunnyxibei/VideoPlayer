@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar
  */
 interface ToolbarUtil {
 
-    val toolbar: Toolbar
+    var toolbar: Toolbar
 
     fun initMainToolbar() {
         toolbar.title = "手机影音"

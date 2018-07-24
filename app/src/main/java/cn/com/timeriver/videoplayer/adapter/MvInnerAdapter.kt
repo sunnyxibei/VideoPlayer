@@ -15,8 +15,8 @@ class MvInnerAdapter(videosBeans: List<VideosBean>) : BaseListAdapter<VideosBean
 
     override fun setLocalData(holder: BaseHolder, itemBean: VideosBean) {
         val card = holder.itemView as MvInnerCard
-        card.setCardAuthor(itemBean.title)
-        card.setCardComposition(itemBean.description)
+        card.setCardAuthor(itemBean.artistName)
+        card.setCardComposition(itemBean.title)
         card.setCardTag(itemBean.albumImg)
         card.setCardBackground(itemBean.posterPic)
     }

@@ -10,8 +10,9 @@ import org.jetbrains.anko.find
 
 class SplashActivity : BaseActivity() {
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_splash
+    override fun getLayoutId() = R.layout.activity_splash
+
+    override fun initView() {
     }
 
     override fun initData() {

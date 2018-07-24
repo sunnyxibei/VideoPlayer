@@ -16,9 +16,7 @@ abstract class BaseListFragment<RESPONSE, ITEMBEAN> : BaseFragment(), BaseListVi
     private var mItemBeans = arrayListOf<ITEMBEAN>()
     private val mPresenter by lazy { getLocalPresenter() }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_list_standard
-    }
+    override fun getLayoutId() = R.layout.fragment_list_standard
 
     override fun initView() {
         mList = find(R.id.list_news)
@@ -51,9 +49,7 @@ abstract class BaseListFragment<RESPONSE, ITEMBEAN> : BaseFragment(), BaseListVi
 
     }
 
-    override fun initData() {
-        mPresenter.loadData(0)
-    }
+    override fun initData() = mPresenter.loadData(0)
 
     override fun showOnFailure(e: IOException?) {
         onUiThread {
