@@ -28,7 +28,7 @@ class HomePresenter(var mView: HomeContract.View?) : HomeContract.Presenter, Ank
     }
 
     override fun unSubscribe() {
-        mView = null
+        mView?.let { mView = null }
     }
 
 }

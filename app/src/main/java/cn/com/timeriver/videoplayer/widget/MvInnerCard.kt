@@ -14,12 +14,12 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
 import org.jetbrains.anko.info
 
-class YuedanCard : RelativeLayout, AnkoLogger {
+class MvInnerCard : RelativeLayout, AnkoLogger {
 
-    private val mYuedanBackgroundIv: ImageView
-    private val mYuedanTagIv: ImageView
-    private val mYuedanAuthorTv: TextView
-    private val mYuedanCompositionTv: TextView
+    private val mInnerBackgroundIv: ImageView
+    private val mInnerTagIv: ImageView
+    private val mInnerAuthorTv: TextView
+    private val mInnerCompositionTv: TextView
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -28,33 +28,32 @@ class YuedanCard : RelativeLayout, AnkoLogger {
     init {
         LayoutInflater.from(context)
                 .inflate(R.layout.layout_yuedan, this, true)
-        mYuedanBackgroundIv = find(R.id.iv_yuedan_bg)
-        mYuedanTagIv = find(R.id.iv_yuedan_tag)
-        mYuedanAuthorTv = find(R.id.tv_yuedan_author)
-        mYuedanCompositionTv = find(R.id.tv_yuedan_composition)
+        mInnerBackgroundIv = find(R.id.iv_yuedan_bg)
+        mInnerTagIv = find(R.id.iv_yuedan_tag)
+        mInnerAuthorTv = find(R.id.tv_yuedan_author)
+        mInnerCompositionTv = find(R.id.tv_yuedan_composition)
     }
 
     fun setCardBackground(picUrl: String) {
         Glide.with(this)
                 .setDefaultRequestOptions(RequestOptions().centerCrop())
                 .load(picUrl)
-                .into(mYuedanBackgroundIv)
+                .into(mInnerBackgroundIv)
     }
 
     fun setCardTag(picUrl: String) {
         info { picUrl }
         Glide.with(this)
                 .setDefaultRequestOptions(RequestOptions().centerCrop().transform(CircleCrop()))
-                .load("http:$picUrl")
-                .into(mYuedanTagIv)
+                .load(picUrl)
+                .into(mInnerTagIv)
     }
 
     fun setCardAuthor(author: String) {
-        mYuedanAuthorTv.text = author
+        mInnerAuthorTv.text = author
     }
 
     fun setCardComposition(composition: String) {
-        mYuedanCompositionTv.text = composition
+        mInnerCompositionTv.text = composition
     }
-
 }

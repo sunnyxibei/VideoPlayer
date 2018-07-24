@@ -26,7 +26,7 @@ class YuedanPresenter(var mView: YuedanContract.View?) : YuedanContract.Presente
     }
 
     override fun unSubscribe() {
-        mView = null
+        mView?.let { mView = null }
     }
 
 }
