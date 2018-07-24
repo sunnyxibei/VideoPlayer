@@ -2,13 +2,15 @@ package cn.com.timeriver.videoplayer.model.net
 
 import com.google.gson.Gson
 import okhttp3.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import java.io.IOException
 import java.lang.reflect.ParameterizedType
 
 /**
  * 单例模式的网络请求管理类
  */
-class NetManager private constructor() {
+class NetManager private constructor() : AnkoLogger {
 
     private val client by lazy { OkHttpClient() }
 
@@ -30,6 +32,7 @@ class NetManager private constructor() {
 
             override fun onResponse(call: Call?, response: Response?) {
                 val result = response?.body()?.string()
+                info { result }
                 val parseResult = parseResult(req, result)
                 req.handler.onSuccess(parseResult)
             }

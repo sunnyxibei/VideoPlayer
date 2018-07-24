@@ -12,6 +12,7 @@ import cn.com.timeriver.videoplayer.presenter.contract.HomeContract
 import cn.com.timeriver.videoplayer.presenter.impl.HomePresenter
 import org.jetbrains.anko.support.v4.find
 import org.jetbrains.anko.support.v4.onUiThread
+import java.io.IOException
 
 class HomeFragment : BaseFragment(), HomeContract.View {
 
@@ -31,6 +32,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         mNewsList.layoutManager = LinearLayoutManager(context)
         mNewsList.adapter = NewsAdapter(mNewsItems)
         //刷新监听
+        mPresenter = HomePresenter(this)
         mRefreshLayout.setColorSchemeColors(Color.RED, Color.YELLOW, Color.GREEN)
         mRefreshLayout.setOnRefreshListener {
             mPresenter.loadData(0)
@@ -55,7 +57,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     override fun initData() {
-        mPresenter = HomePresenter(this)
         mPresenter.loadData(0)
     }
 
@@ -71,8 +72,10 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         }
     }
 
-    override fun showOnFailure() {
-        myToast("fetch data fail")
-        onUiThread { mRefreshLayout.isRefreshing = false }
+    override fun showOnFailure(e: IOException?) {
+        onUiThread {
+            myToast("fetch data fail")
+            mRefreshLayout.isRefreshing = false
+        }
     }
 }

@@ -7,12 +7,7 @@ import java.io.IOException
  */
 interface RequestHandler<RESPONSE> {
 
-    fun onSuccess(response: RESPONSE) {
-
-    }
-
-    fun onFailure(e: IOException?) {
-
-    }
+    fun onFailure(e: IOException?)
+    fun onSuccess(response: RESPONSE?)
 
 }

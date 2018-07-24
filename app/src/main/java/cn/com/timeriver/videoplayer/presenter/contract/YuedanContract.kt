@@ -1,12 +1,9 @@
 package cn.com.timeriver.videoplayer.presenter.contract
 
-import cn.com.timeriver.videoplayer.model.bean.NewsItem
+import cn.com.timeriver.videoplayer.model.bean.YuedanItem
 import java.io.IOException
 
-/**
- * {@link HomeFragment}对应的MVP功能接口
- */
-interface HomeContract {
+interface YuedanContract {
 
     interface Presenter {
         fun loadData(offset: Int, reset: Boolean = true)
@@ -14,6 +11,6 @@ interface HomeContract {
 
     interface View {
         fun showOnFailure(e: IOException?)
-        fun showOnSuccess(newsItems: List<NewsItem>, reset: Boolean)
+        fun showOnSuccess(yuedanItem: YuedanItem, reset: Boolean)
     }
 }

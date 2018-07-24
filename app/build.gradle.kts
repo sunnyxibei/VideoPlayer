@@ -40,4 +40,5 @@ dependencies {
     implementation(deps.others.gson)
     implementation(deps.others.anko)
     implementation(deps.others.bottombar)
+    implementation(deps.others.glideTransformations)
 }

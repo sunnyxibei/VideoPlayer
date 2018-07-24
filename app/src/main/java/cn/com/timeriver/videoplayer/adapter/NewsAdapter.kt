@@ -51,6 +51,4 @@ class NewsAdapter() : RecyclerView.Adapter<NewsHolder>() {
 
 }
 
-class NewsHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-
-}
+class NewsHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)

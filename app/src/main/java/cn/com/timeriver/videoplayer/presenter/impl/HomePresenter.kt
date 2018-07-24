@@ -12,19 +12,19 @@ class HomePresenter(var mView: HomeContract.View) : HomeContract.Presenter, Anko
 
     override fun loadData(offset: Int, reset: Boolean) {
         //请求网络数据，并加载RecyclerView
-        HomeRequest(URLProviderUtils.getHomeUrl(offset, 20),
-                object : RequestHandler<List<NewsItem>> {
-                    override fun onFailure(e: IOException?) {
-                        mView.showOnFailure()
+        val requestHandler = object : RequestHandler<List<NewsItem>> {
+            override fun onFailure(e: IOException?) {
+                mView.showOnFailure(e)
+            }
 
-                    }
+            override fun onSuccess(response: List<NewsItem>?) {
+                response?.let {
+                    mView.showOnSuccess(response, reset)
+                }
+            }
 
-                    override fun onSuccess(response: List<NewsItem>) {
-                        response.let {
-                            mView.showOnSuccess(response, reset)
-                        }
-                    }
-                }).execute()
+        }
+        HomeRequest(URLProviderUtils.getHomeUrl(offset, 20), requestHandler).execute()
     }
 
 }
