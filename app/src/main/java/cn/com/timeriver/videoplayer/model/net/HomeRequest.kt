@@ -1,6 +1,6 @@
 package cn.com.timeriver.videoplayer.model.net
 
-import cn.com.timeriver.videoplayer.model.bean.NewsItem
+import cn.com.timeriver.videoplayer.model.bean.HomeItem
 
-class HomeRequest(url: String, handler: RequestHandler<List<NewsItem>>) :
-        BaseRequest<List<NewsItem>>(url, handler)
+class HomeRequest(url: String, handler: RequestHandler<List<HomeItem>>) :
+        BaseRequest<List<HomeItem>>(url, handler)

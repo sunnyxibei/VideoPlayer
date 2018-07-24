@@ -1,6 +1,6 @@
 package cn.com.timeriver.videoplayer.model.bean
 
-data class NewsItem(
+data class HomeItem(
         val type: String,
         val subType: String,
         val id: Int,

@@ -1,19 +1,15 @@
 package cn.com.timeriver.videoplayer.presenter.contract
 
-import cn.com.timeriver.videoplayer.model.bean.NewsItem
-import java.io.IOException
+import cn.com.timeriver.videoplayer.base.BaseListPresenter
+import cn.com.timeriver.videoplayer.base.BaseListView
+import cn.com.timeriver.videoplayer.model.bean.HomeItem
 
 /**
  * {@link HomeFragment}对应的MVP功能接口
  */
 interface HomeContract {
 
-    interface Presenter {
-        fun loadData(offset: Int, reset: Boolean = true)
-    }
+    interface Presenter: BaseListPresenter
 
-    interface View {
-        fun showOnFailure(e: IOException?)
-        fun showOnSuccess(newsItems: List<NewsItem>, reset: Boolean)
-    }
+    interface View : BaseListView<List<HomeItem>>
 }

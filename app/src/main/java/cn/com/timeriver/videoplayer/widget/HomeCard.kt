@@ -16,7 +16,7 @@ import org.jetbrains.anko.find
  *
  * 了解并学习Kotlin的构造方法
  */
-class NewsCard : RelativeLayout {
+class HomeCard : RelativeLayout {
 
     private val mCardBackgroundIv: ImageView
     private val mCardTagIv: ImageView

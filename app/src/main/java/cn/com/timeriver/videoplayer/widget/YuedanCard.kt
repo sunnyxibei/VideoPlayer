@@ -14,7 +14,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
 import org.jetbrains.anko.info
 
-class YuedanView : RelativeLayout, AnkoLogger {
+class YuedanCard : RelativeLayout, AnkoLogger {
 
     private val mYuedanBackgroundIv: ImageView
     private val mYuedanTagIv: ImageView

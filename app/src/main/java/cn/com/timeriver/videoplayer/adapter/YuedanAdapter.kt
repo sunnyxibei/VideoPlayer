@@ -1,50 +1,24 @@
 package cn.com.timeriver.videoplayer.adapter
 
-import android.support.v7.widget.RecyclerView
+import android.content.Context
 import android.view.View
-import android.view.ViewGroup
+import cn.com.timeriver.videoplayer.base.BaseHolder
+import cn.com.timeriver.videoplayer.base.BaseListAdapter
 import cn.com.timeriver.videoplayer.model.bean.PlayLists
-import cn.com.timeriver.videoplayer.widget.LoadMoreView
-import cn.com.timeriver.videoplayer.widget.YuedanView
+import cn.com.timeriver.videoplayer.widget.YuedanCard
 
-class YuedanAdapter(playLists: List<PlayLists>) : RecyclerView.Adapter<YuedanHolder>() {
+class YuedanAdapter(playLists: List<PlayLists>) : BaseListAdapter<PlayLists>(playLists) {
 
-    companion object {
-        private const val TYPE_NORMAL = 0
-        private const val TYPE_FOOTER = 1
+    override fun getLocalItemView(context: Context?): View? {
+        return YuedanCard(context)
     }
 
-    private var data: List<PlayLists> = playLists
-
-    override fun getItemCount(): Int {
-        return data.size + 1
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if (position == data.size) TYPE_FOOTER else TYPE_NORMAL
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YuedanHolder {
-        val context = parent.context
-        return if (viewType == TYPE_NORMAL) {
-            YuedanHolder(YuedanView(context))
-        } else {
-            YuedanHolder(LoadMoreView(context))
-        }
-    }
-
-
-    override fun onBindViewHolder(holder: YuedanHolder, position: Int) {
-        if (getItemViewType(position) == TYPE_NORMAL) {
-            val yuedanView: YuedanView = holder.itemView as YuedanView
-            val item = data[position]
-            yuedanView.setCardAuthor(item.title)
-            yuedanView.setCardComposition(item.creator.nickName)
-            yuedanView.setCardBackground(item.playListBigPic)
-            yuedanView.setCardTag(item.creator.largeAvatar)
-        }
+    override fun setLocalData(holder: BaseHolder, itemBean: PlayLists) {
+        val yuedanCard: YuedanCard = holder.itemView as YuedanCard
+        yuedanCard.setCardAuthor(itemBean.title)
+        yuedanCard.setCardComposition(itemBean.creator.nickName)
+        yuedanCard.setCardBackground(itemBean.playListBigPic)
+        yuedanCard.setCardTag(itemBean.creator.largeAvatar)
     }
 
 }
-
-class YuedanHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
