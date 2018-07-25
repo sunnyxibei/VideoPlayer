@@ -10,6 +10,7 @@ import cn.com.timeriver.videoplayer.model.bean.VideosBean
 import cn.com.timeriver.videoplayer.model.command.PlayerBeanCommand
 import cn.com.timeriver.videoplayer.presenter.contract.MvInnerContract
 import cn.com.timeriver.videoplayer.presenter.impl.MvInnerPresenter
+import cn.com.timeriver.videoplayer.ui.activity.TextureVideoPlayerActivity
 import cn.com.timeriver.videoplayer.ui.activity.VideoPlayerActivity
 import org.jetbrains.anko.support.v4.startActivity
 
@@ -35,7 +36,7 @@ class MvInnerFragment : BaseListFragment<List<VideosBean>, VideosBean>(), MvInne
     override fun getLocalAdapter(mItemBeans: List<VideosBean>): BaseListAdapter<VideosBean> {
         val mvInnerAdapter = MvInnerAdapter(mItemBeans)
         mvInnerAdapter.setOnItemClickListener {
-            startActivity<VideoPlayerActivity>("item" to PlayerBeanCommand(it).execute())
+            startActivity<TextureVideoPlayerActivity>("item" to PlayerBeanCommand(it).execute())
         }
         return mvInnerAdapter
     }

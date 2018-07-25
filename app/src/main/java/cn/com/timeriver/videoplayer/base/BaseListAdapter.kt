@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import cn.com.timeriver.videoplayer.widget.LoadMoreView
 
+/**
+ * 查看继承关系的快捷键ctrl+H键
+ */
 abstract class BaseListAdapter<ITEMBEAN>(itemBean: List<ITEMBEAN>) : RecyclerView.Adapter<BaseHolder>() {
 
     companion object {

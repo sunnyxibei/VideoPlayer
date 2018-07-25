@@ -22,10 +22,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="cn.com.timeriver.videoplayer.ui.activity.MainActivity" />
-        <activity android:name="cn.com.timeriver.videoplayer.ui.activity.SettingsActivity" />
-        <activity android:name="cn.com.timeriver.videoplayer.ui.activity.AboutActivity" />
-        <activity android:name=".ui.activity.VideoPlayerActivity" />
+        <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.SettingsActivity" />
+        <activity android:name=".ui.activity.AboutActivity" />
+        <activity
+            android:name=".ui.activity.VideoPlayerActivity"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.TextureVideoPlayerActivity" />
     </application>
 
 </manifest>
