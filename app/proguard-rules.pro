@@ -27,4 +27,8 @@
   **[] $VALUES;
   public *;
 }
+#ijkplayer
+-keep com.dou361.ijkplayer.** {
+*;
+}
 

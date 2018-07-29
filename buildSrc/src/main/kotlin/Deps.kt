@@ -10,6 +10,7 @@ object deps {
     const val bottombarVersion = "2.3.1"
     const val constraintVersion = "1.1.2"
     const val glideTransVersion = "3.3.0"
+    const val ijkplayerVersion = "1.0.5"
 
     object plugin {
         const val gradle = "com.android.tools.build:gradle:$gradlePluginVersion"
@@ -34,6 +35,7 @@ object deps {
         const val anko = "org.jetbrains.anko:anko:$ankoVersion"
         const val bottombar = "com.roughike:bottom-bar:$bottombarVersion"
         const val glideTransformations = "jp.wasabeef:glide-transformations:$glideTransVersion"
+        const val ijkplayer = "com.dou361.ijkplayer:jjdxm-ijkplayer:$ijkplayerVersion"
     }
 
     object test {

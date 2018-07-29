@@ -15,7 +15,11 @@ android {
         targetSdkVersion(27)
         versionCode = 1
         versionName = "1.0.0"
+        multiDexEnabled = true
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilter("armeabi-v7a")
+        }
     }
     buildTypes {
         getByName("release") {
@@ -45,4 +49,6 @@ dependencies {
     implementation(deps.others.anko)
     implementation(deps.others.bottombar)
     implementation(deps.others.glideTransformations)
+    implementation(deps.others.ijkplayer)
+    implementation("com.android.support:multidex:1.0.1")
 }

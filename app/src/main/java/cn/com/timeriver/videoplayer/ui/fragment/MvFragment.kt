@@ -36,11 +36,16 @@ class MvFragment : BaseFragment(), MvContract.View {
     }
 
     override fun showOnSuccess(mvAreaBeans: List<MvAreaBean>?) {
-        onUiThread {
-            mvAreaBeans?.let {
-                mPagerMv.adapter = MvPagerAdapter(mvAreaBeans, childFragmentManager)
-                mTabMv.setupWithViewPager(mPagerMv)
+        //横竖屏切换的时候，如果activity重建，这里会有一个空指针异常
+        try {
+            onUiThread {
+                mvAreaBeans?.let {
+                    mPagerMv.adapter = MvPagerAdapter(mvAreaBeans, childFragmentManager)
+                    mTabMv.setupWithViewPager(mPagerMv)
+                }
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

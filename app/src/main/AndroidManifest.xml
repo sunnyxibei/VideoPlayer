@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".base.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -33,6 +34,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.TextureVideoPlayerActivity" />
+        <activity
+            android:name=".ui.activity.IjkVideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="sensor" />
     </application>
 
 </manifest>
