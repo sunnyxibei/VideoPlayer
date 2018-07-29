@@ -1,11 +1,13 @@
 package cn.com.timeriver.videoplayer.ui.activity
 
+import android.content.Intent
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.base.BaseActivity
 import cn.com.timeriver.videoplayer.model.bean.PlayerBean
 import cn.jzvd.JZVideoPlayer
 import cn.jzvd.JZVideoPlayerStandard
 import org.jetbrains.anko.find
+import org.jetbrains.anko.info
 
 class JiaoziVideoPlayerActivity : BaseActivity() {
 
@@ -17,10 +19,28 @@ class JiaoziVideoPlayerActivity : BaseActivity() {
         videoView = find(R.id.video_view)
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        initData()
+    }
+
     override fun initData() {
-        val playerBean = intent.getParcelableExtra<PlayerBean>("item")
-        videoView.setUp(playerBean.url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, playerBean.title)
-        videoView.thumbImageView.setImageResource(R.mipmap.about_banner)
+        JZVideoPlayer.releaseAllVideos()
+        val data = intent.data
+        info { data }
+        if (data == null) {
+            val playerBean = intent.getParcelableExtra<PlayerBean>("item")
+            videoView.setUp(playerBean.url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, playerBean.title)
+            videoView.thumbImageView.setImageResource(R.mipmap.about_banner)
+        } else {
+            val dataString = data.toString()
+            if (dataString.startsWith("http")) {
+                videoView.setUp(dataString, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, dataString)
+            } else {
+                videoView.setUp(data.path, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, data.path)
+            }
+        }
     }
 
     override fun onPause() {
