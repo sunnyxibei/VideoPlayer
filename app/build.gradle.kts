@@ -51,4 +51,5 @@ dependencies {
     implementation(deps.others.glideTransformations)
     implementation(deps.others.ijkplayer)
     implementation("com.android.support:multidex:1.0.1")
+    implementation ("cn.jzvd:jiaozivideoplayer:6.2.12")
 }

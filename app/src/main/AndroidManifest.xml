@@ -38,6 +38,10 @@
             android:name=".ui.activity.IjkVideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensor" />
+        <activity
+            android:name=".ui.activity.JiaoziVideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="sensor" />
     </application>
 
 </manifest>
