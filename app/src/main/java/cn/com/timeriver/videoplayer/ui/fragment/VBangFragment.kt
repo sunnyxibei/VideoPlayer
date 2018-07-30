@@ -6,6 +6,7 @@ import android.content.Context
 import android.database.Cursor
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.format.Formatter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,12 @@ import android.widget.ListView
 import android.widget.TextView
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.base.BaseFragment
+import cn.com.timeriver.videoplayer.model.bean.MusicBean
+import cn.com.timeriver.videoplayer.model.command.MusicBeanCommand
+import cn.com.timeriver.videoplayer.ui.activity.MusicPlayerActivity
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.find
+import org.jetbrains.anko.support.v4.startActivity
 
 class VBangFragment : BaseFragment() {
 
@@ -49,6 +54,17 @@ class VBangFragment : BaseFragment() {
                         MediaStore.Audio.Media.ARTIST,
                         MediaStore.Audio.Media.SIZE),
                 null, null, null)
+        listView.setOnItemClickListener { parent, _, position, _ ->
+            //获取数据集合和当前点击的position，发送到MusicPlayer界面
+            val musicBeanList = arrayListOf<MusicBean>()
+            val adapter = parent.adapter as CursorAdapter
+            val cursor = adapter.cursor
+            cursor.moveToFirst()
+            while (cursor.moveToNext()) {
+                musicBeanList.add(MusicBeanCommand(cursor).execute())
+            }
+            startActivity<MusicPlayerActivity>("list" to musicBeanList, "position" to position)
+        }
     }
 
     override fun onDestroyView() {
@@ -69,9 +85,10 @@ class VBangAdapter(context: Context?, cursor: Cursor?) : CursorAdapter(context, 
         val artistTv = view?.find<TextView>(R.id.tv_artist)
         val sizeTv = view?.find<TextView>(R.id.tv_size)
         cursor?.let {
-            titleTv?.text = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
-            artistTv?.text = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
-            sizeTv?.text = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE)).toString()
+            val musicBean = MusicBeanCommand(cursor).execute()
+            titleTv?.text = musicBean.title
+            artistTv?.text = musicBean.artist
+            sizeTv?.text = Formatter.formatShortFileSize(context, musicBean.size)
         }
     }
 
