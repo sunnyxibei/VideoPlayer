@@ -27,9 +27,8 @@ class VBangFragment : BaseFragment() {
     private lateinit var listView: ListView
     private lateinit var vBangAdapter: VBangAdapter
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_vbang
-    }
+    override fun getLayoutId() = R.layout.fragment_vbang
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,7 +58,8 @@ class VBangFragment : BaseFragment() {
             val musicBeanList = arrayListOf<MusicBean>()
             val adapter = parent.adapter as CursorAdapter
             val cursor = adapter.cursor
-            cursor.moveToFirst()
+            //重置cursor指针的位置
+            cursor.moveToPosition(-1)
             while (cursor.moveToNext()) {
                 musicBeanList.add(MusicBeanCommand(cursor).execute())
             }
