@@ -16,7 +16,7 @@ import org.jetbrains.anko.support.v4.startActivity
 class MvInnerFragment : BaseListFragment<List<VideosBean>, VideosBean>(), MvInnerContract.View {
 
     companion object {
-        fun getInstance(args: Bundle): MvInnerFragment {
+        fun newInstance(args: Bundle): MvInnerFragment {
             val fragment = MvInnerFragment()
             fragment.arguments = args
             return fragment

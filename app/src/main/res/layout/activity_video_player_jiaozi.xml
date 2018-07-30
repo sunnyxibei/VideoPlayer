@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <cn.jzvd.JZVideoPlayerStandard
         android:id="@+id/video_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="200dp" />
 
-</RelativeLayout>
+    <RadioGroup
+        android:id="@+id/rg_mv"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_desc"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mv_description"
+            android:button="@null"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rb_comment"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mv_comment"
+            android:button="@null" />
+
+        <RadioButton
+            android:id="@+id/rb_relative"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mv_relative"
+            android:button="@null" />
+
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mv_lower_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+</LinearLayout>

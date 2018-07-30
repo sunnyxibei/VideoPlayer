@@ -6,4 +6,6 @@
     <color name="colorTextWhite">#FFFFFF</color>
     <color name="colorTextBlack">#000000</color>
     <color name="colorTextGrey">#9B9B9B</color>
+    <color name="colorGray">#40000000</color>
+    <color name="colorMusicProgress">#0CBDA7</color>
 </resources>

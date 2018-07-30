@@ -43,6 +43,7 @@ dependencies {
     implementation(deps.support.design)
     implementation(deps.support.cardview)
     implementation(deps.support.constraint)
+    implementation(deps.support.multidex)
     implementation(deps.others.glide)
     implementation(deps.others.okhttp)
     implementation(deps.others.gson)
@@ -50,6 +51,5 @@ dependencies {
     implementation(deps.others.bottombar)
     implementation(deps.others.glideTransformations)
     implementation(deps.others.ijkplayer)
-    implementation("com.android.support:multidex:1.0.1")
-    implementation ("cn.jzvd:jiaozivideoplayer:6.2.12")
+    implementation (deps.others.jiaozivideoplayer)
 }

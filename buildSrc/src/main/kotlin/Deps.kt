@@ -11,6 +11,8 @@ object deps {
     const val constraintVersion = "1.1.2"
     const val glideTransVersion = "3.3.0"
     const val ijkplayerVersion = "1.0.5"
+    const val multidexVersion = "1.0.1"
+    const val jiaoziVersion = "6.2.12"
 
     object plugin {
         const val gradle = "com.android.tools.build:gradle:$gradlePluginVersion"
@@ -26,6 +28,7 @@ object deps {
         const val design = "com.android.support:design:$supportVersion"
         const val cardview = "com.android.support:cardview-v7:$supportVersion"
         const val constraint = "com.android.support.constraint:constraint-layout:$constraintVersion"
+        const val multidex = "com.android.support:multidex:$multidexVersion"
     }
 
     object others {
@@ -36,6 +39,7 @@ object deps {
         const val bottombar = "com.roughike:bottom-bar:$bottombarVersion"
         const val glideTransformations = "jp.wasabeef:glide-transformations:$glideTransVersion"
         const val ijkplayer = "com.dou361.ijkplayer:jjdxm-ijkplayer:$ijkplayerVersion"
+        const val jiaozivideoplayer = "cn.jzvd:jiaozivideoplayer:$jiaoziVersion"
     }
 
     object test {

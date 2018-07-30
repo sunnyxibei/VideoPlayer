@@ -13,7 +13,7 @@ class MvPagerAdapter(var mvAreaBeans: List<MvAreaBean>, manager: FragmentManager
         val mvAreaBean = mvAreaBeans[position]
         val args = Bundle()
         args.putParcelable("args", mvAreaBean)
-        return MvInnerFragment.getInstance(args)
+        return MvInnerFragment.newInstance(args)
     }
 
     override fun getCount(): Int {
