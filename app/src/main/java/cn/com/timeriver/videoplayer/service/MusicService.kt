@@ -5,6 +5,9 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Binder
 import android.os.IBinder
+import android.support.v4.content.LocalBroadcastManager
+import cn.com.timeriver.videoplayer.base.Actions
+import cn.com.timeriver.videoplayer.base.App
 import cn.com.timeriver.videoplayer.model.bean.MusicBean
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -43,9 +46,13 @@ class MusicService : Service(), AnkoLogger {
 
     private fun playMusic() {
         musicBeanList?.let {
-            mediaPlayer.setDataSource(musicBeanList?.get(position)?.data)
+            val musicBean = musicBeanList?.get(position)
+            mediaPlayer.setDataSource(musicBean?.data)
             mediaPlayer.setOnPreparedListener { mediaPlayer ->
                 mediaPlayer.start()
+                val intent = Intent(Actions.MUSIC_START_PLAY)
+                intent.putExtra("music_bean", musicBean)
+                LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(intent)
             }
             mediaPlayer.prepareAsync()
         }
@@ -70,6 +77,15 @@ class MusicService : Service(), AnkoLogger {
     }
 
     inner class MusicBinder : Binder(), IMusicService {
+
+        override fun getCurrentProgress(): Int {
+            return mediaPlayer.currentPosition
+        }
+
+        override fun getMusicDuration(): Int {
+            return mediaPlayer.duration
+        }
+
         override fun isMediaPlaying(): Boolean? {
             return mediaPlayer.isPlaying
         }
