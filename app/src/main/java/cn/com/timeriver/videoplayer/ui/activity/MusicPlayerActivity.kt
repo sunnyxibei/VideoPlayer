@@ -15,14 +15,12 @@ import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.base.Actions
 import cn.com.timeriver.videoplayer.base.App
 import cn.com.timeriver.videoplayer.base.BaseActivity
+import cn.com.timeriver.videoplayer.base.Constants
 import cn.com.timeriver.videoplayer.model.bean.MusicBean
 import cn.com.timeriver.videoplayer.service.IMusicService
 import cn.com.timeriver.videoplayer.service.MusicService
 import cn.com.timeriver.videoplayer.util.StringUtil
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.find
-import org.jetbrains.anko.image
-import org.jetbrains.anko.imageResource
+import org.jetbrains.anko.*
 
 class MusicPlayerActivity : BaseActivity(), AnkoLogger {
 
@@ -35,6 +33,7 @@ class MusicPlayerActivity : BaseActivity(), AnkoLogger {
     private lateinit var audioAnim: ImageView
     private lateinit var progressTv: TextView
     private lateinit var seekBar: SeekBar
+    private lateinit var modeIv: ImageView
 
     private lateinit var data: Intent
     private lateinit var parseDuration: String
@@ -70,6 +69,7 @@ class MusicPlayerActivity : BaseActivity(), AnkoLogger {
         audioAnim = find(R.id.audio_anim)
         progressTv = find(R.id.tv_progress)
         seekBar = find(R.id.progress_sk)
+        modeIv = find(R.id.mode)
 
         data = intent
         data.setClass(this, MusicService::class.java)
@@ -86,6 +86,34 @@ class MusicPlayerActivity : BaseActivity(), AnkoLogger {
         LocalBroadcastManager.getInstance(App.getInstance()).registerReceiver(mReceiver, filter)
 
         backView.setOnClickListener { onBackPressed() }
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    seekBar?.let {
+                        iMusicService?.callSeekTo(it.progress)
+                    }
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
+        updatePlayModeButton(defaultSharedPreferences.getInt(Constants.PLAY_MODE, Constants.LOOPING))
+        modeIv.setOnClickListener {
+            val playMode = iMusicService?.callChangePlayMode()
+            updatePlayModeButton(playMode)
+        }
+    }
+
+    private fun updatePlayModeButton(playMode: Int?) {
+        modeIv.imageResource = when (playMode) {
+            Constants.SINGLE -> R.drawable.selector_btn_playmode_single
+            Constants.RANDOM -> R.drawable.selector_btn_playmode_random
+            else -> R.drawable.selector_btn_playmode_order
+        }
     }
 
     /**

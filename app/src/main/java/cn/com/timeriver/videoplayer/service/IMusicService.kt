@@ -10,4 +10,8 @@ interface IMusicService {
 
     fun getCurrentProgress(): Int
 
+    fun callSeekTo(progress: Int)
+
+    fun callChangePlayMode(): Int
+
 }

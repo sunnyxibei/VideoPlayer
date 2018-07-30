@@ -8,13 +8,16 @@ import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
 import cn.com.timeriver.videoplayer.base.Actions
 import cn.com.timeriver.videoplayer.base.App
+import cn.com.timeriver.videoplayer.base.Constants
 import cn.com.timeriver.videoplayer.model.bean.MusicBean
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.info
 import java.util.*
 
 class MusicService : Service(), AnkoLogger {
 
+    private var playMode = Constants.LOOPING
     private var position = -1
 
     private val mediaPlayer by lazy { MediaPlayer() }
@@ -46,7 +49,9 @@ class MusicService : Service(), AnkoLogger {
 
     private fun playMusic() {
         musicBeanList?.let {
+            position %= (musicBeanList?.size ?: 1)
             val musicBean = musicBeanList?.get(position)
+            mediaPlayer.reset()
             mediaPlayer.setDataSource(musicBean?.data)
             mediaPlayer.setOnPreparedListener { mediaPlayer ->
                 mediaPlayer.start()
@@ -54,8 +59,18 @@ class MusicService : Service(), AnkoLogger {
                 intent.putExtra("music_bean", musicBean)
                 LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(intent)
             }
+            mediaPlayer.setOnCompletionListener { mediaPlayer -> autoPlayNext() }
             mediaPlayer.prepareAsync()
         }
+    }
+
+    private fun autoPlayNext() {
+        playMode = defaultSharedPreferences.getInt(Constants.PLAY_MODE, Constants.LOOPING)
+        when (playMode) {
+            Constants.LOOPING -> position++
+            Constants.RANDOM -> position = Random().nextInt(musicBeanList?.size ?: 1)
+        }
+        playMusic()
     }
 
     private fun switchPlayStatus() {
@@ -77,6 +92,16 @@ class MusicService : Service(), AnkoLogger {
     }
 
     inner class MusicBinder : Binder(), IMusicService {
+
+        override fun callChangePlayMode(): Int {
+            playMode = (playMode + 1) % 3
+            defaultSharedPreferences.edit().putInt(Constants.PLAY_MODE, playMode).apply()
+            return playMode
+        }
+
+        override fun callSeekTo(progress: Int) {
+            mediaPlayer.seekTo(progress)
+        }
 
         override fun getCurrentProgress(): Int {
             return mediaPlayer.currentPosition
