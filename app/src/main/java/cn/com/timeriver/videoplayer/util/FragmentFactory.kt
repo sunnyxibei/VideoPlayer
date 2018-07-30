@@ -4,7 +4,7 @@ import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.base.BaseFragment
 import cn.com.timeriver.videoplayer.ui.fragment.HomeFragment
 import cn.com.timeriver.videoplayer.ui.fragment.MvFragment
-import cn.com.timeriver.videoplayer.ui.fragment.VbangFragment
+import cn.com.timeriver.videoplayer.ui.fragment.VBangFragment
 import cn.com.timeriver.videoplayer.ui.fragment.YuedanFragment
 
 /**
@@ -18,7 +18,7 @@ class FragmentFactory private constructor() {
 
     private val homeFragment by lazy { HomeFragment() }
     private val mvFragment by lazy { MvFragment() }
-    private val vbangFragment by lazy { VbangFragment() }
+    private val vbangFragment by lazy { VBangFragment() }
     private val yuedanFragment by lazy { YuedanFragment() }
 
     companion object {
