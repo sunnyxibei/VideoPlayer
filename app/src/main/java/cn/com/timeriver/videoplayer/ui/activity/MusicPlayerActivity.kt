@@ -6,11 +6,10 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Handler
 import android.os.IBinder
 import android.os.Message
+import android.support.design.widget.BottomSheetDialog
 import android.support.v4.content.LocalBroadcastManager
 import android.view.View
-import android.widget.ImageView
-import android.widget.SeekBar
-import android.widget.TextView
+import android.widget.*
 import cn.com.timeriver.videoplayer.R
 import cn.com.timeriver.videoplayer.base.Actions
 import cn.com.timeriver.videoplayer.base.App
@@ -21,10 +20,11 @@ import cn.com.timeriver.videoplayer.service.IMusicService
 import cn.com.timeriver.videoplayer.service.MusicService
 import cn.com.timeriver.videoplayer.util.StringUtil
 import org.jetbrains.anko.*
+import java.util.*
 
 class MusicPlayerActivity : BaseActivity(), AnkoLogger {
 
-    val UPDATE_PROGRESS = 1
+    private val UPDATE_PROGRESS = 1
 
     private lateinit var stateButton: ImageView
     private lateinit var audioTitle: TextView
@@ -36,12 +36,14 @@ class MusicPlayerActivity : BaseActivity(), AnkoLogger {
     private lateinit var modeIv: ImageView
     private lateinit var preIv: ImageView
     private lateinit var nextIv: ImageView
+    private lateinit var playListIv: ImageView
 
     private lateinit var data: Intent
     private lateinit var parseDuration: String
 
     private lateinit var animationDrawable: AnimationDrawable
     private var iMusicService: IMusicService? = null
+    private var musicBeanList: ArrayList<MusicBean>? = null
     private val conn by lazy { MusicConnection() }
 
     override fun getLayoutId() = R.layout.activity_music_player
@@ -74,11 +76,14 @@ class MusicPlayerActivity : BaseActivity(), AnkoLogger {
         modeIv = find(R.id.mode)
         preIv = find(R.id.pre)
         nextIv = find(R.id.next)
+        playListIv = find(R.id.playlist)
 
         data = Intent(intent)
         data.setClass(this, MusicService::class.java)
         startService(data)
         bindService(data, conn, Context.BIND_AUTO_CREATE)
+
+        musicBeanList = intent?.getParcelableArrayListExtra<MusicBean>("list")
 
         stateButton.setOnClickListener {
             iMusicService?.callSwitchPlayStatus()
@@ -106,9 +111,21 @@ class MusicPlayerActivity : BaseActivity(), AnkoLogger {
             }
         })
         updatePlayModeButton(defaultSharedPreferences.getInt(Constants.PLAY_MODE, Constants.LOOPING))
-        modeIv.setOnClickListener {
-            val playMode = iMusicService?.callChangePlayMode()
-            updatePlayModeButton(playMode)
+        modeIv.setOnClickListener { updatePlayModeButton(iMusicService?.callChangePlayMode()) }
+        playListIv.setOnClickListener { showBottomSheetDialog() }
+    }
+
+    private fun showBottomSheetDialog() {
+        musicBeanList?.let {
+            val sheetDialog = BottomSheetDialog(this)
+            val listView = ListView(this)
+            listView.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, it)
+            listView.setOnItemClickListener { parent, view, position, id ->
+                iMusicService?.callSwitchPlayPosition(position)
+                sheetDialog.dismiss()
+            }
+            sheetDialog.setContentView(listView)
+            sheetDialog.show()
         }
     }
 

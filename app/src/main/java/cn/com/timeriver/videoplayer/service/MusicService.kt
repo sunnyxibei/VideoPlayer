@@ -108,6 +108,11 @@ class MusicService : Service(), AnkoLogger {
 
     inner class MusicBinder : Binder(), IMusicService {
 
+        override fun callSwitchPlayPosition(newPosition: Int) {
+            position = newPosition
+            playMusic()
+        }
+
         override fun callPlayPre() {
             position--
             playMusic()

@@ -18,4 +18,6 @@ interface IMusicService {
 
     fun callPlayNext()
 
+    fun callSwitchPlayPosition(newPosition: Int)
+
 }
