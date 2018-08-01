@@ -67,7 +67,9 @@
                 <data android:mimeType="video/3gpp2" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MusicPlayerActivity" />
+        <activity
+            android:name=".ui.activity.MusicPlayerActivity"
+            android:launchMode="singleTask" />
 
         <service android:name=".service.MusicService" />
     </application>
