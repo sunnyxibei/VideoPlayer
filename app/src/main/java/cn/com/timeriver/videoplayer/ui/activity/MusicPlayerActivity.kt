@@ -34,6 +34,8 @@ class MusicPlayerActivity : BaseActivity(), AnkoLogger {
     private lateinit var progressTv: TextView
     private lateinit var seekBar: SeekBar
     private lateinit var modeIv: ImageView
+    private lateinit var preIv: ImageView
+    private lateinit var nextIv: ImageView
 
     private lateinit var data: Intent
     private lateinit var parseDuration: String
@@ -70,8 +72,10 @@ class MusicPlayerActivity : BaseActivity(), AnkoLogger {
         progressTv = find(R.id.tv_progress)
         seekBar = find(R.id.progress_sk)
         modeIv = find(R.id.mode)
+        preIv = find(R.id.pre)
+        nextIv = find(R.id.next)
 
-        data = intent
+        data = Intent(intent)
         data.setClass(this, MusicService::class.java)
         startService(data)
         bindService(data, conn, Context.BIND_AUTO_CREATE)
@@ -134,6 +138,8 @@ class MusicPlayerActivity : BaseActivity(), AnkoLogger {
         animationDrawable = audioAnim.image as AnimationDrawable
         animationDrawable.start()
         updatePlayStatusButton(iMusicService?.isMediaPlaying())
+        preIv.setOnClickListener { iMusicService?.callPlayPre() }
+        nextIv.setOnClickListener { iMusicService?.callPlayNext() }
     }
 
     private fun scheduleTimerTask() {

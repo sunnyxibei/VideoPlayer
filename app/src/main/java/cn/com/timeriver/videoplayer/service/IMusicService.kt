@@ -14,4 +14,8 @@ interface IMusicService {
 
     fun callChangePlayMode(): Int
 
+    fun callPlayPre()
+
+    fun callPlayNext()
+
 }

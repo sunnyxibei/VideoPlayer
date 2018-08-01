@@ -34,11 +34,20 @@ class MusicService : Service(), AnkoLogger {
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         info { "onStartCommand" }
+        //处理播放同一首歌曲的逻辑
         musicBeanList = intent?.getParcelableArrayListExtra<MusicBean>("list")
         //Elvis运算符
-        position = intent?.getIntExtra("position", -1) ?: -1
-        info { "musicBeanList = $musicBeanList & position = $position" }
-        playMusic()
+        val paraPosition = intent?.getIntExtra("position", 0) ?: 0
+        if (position != paraPosition) {
+            position = paraPosition
+            info { "musicBeanList = $musicBeanList & position = $position" }
+            playMusic()
+        } else {
+            musicBeanList?.let {
+                sendUpdateUiBroadcast(it[position])
+                info { "musicBean = ${it[position]}" }
+            }
+        }
         return START_NOT_STICKY
     }
 
@@ -49,19 +58,24 @@ class MusicService : Service(), AnkoLogger {
 
     private fun playMusic() {
         musicBeanList?.let {
+            if (position < 0) position += it.size
             position %= (musicBeanList?.size ?: 1)
-            val musicBean = musicBeanList?.get(position)
+            val musicBean = it[position]
             mediaPlayer.reset()
-            mediaPlayer.setDataSource(musicBean?.data)
+            mediaPlayer.setDataSource(musicBean.data)
             mediaPlayer.setOnPreparedListener { mediaPlayer ->
                 mediaPlayer.start()
-                val intent = Intent(Actions.MUSIC_START_PLAY)
-                intent.putExtra("music_bean", musicBean)
-                LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(intent)
+                sendUpdateUiBroadcast(musicBean)
             }
-            mediaPlayer.setOnCompletionListener { mediaPlayer -> autoPlayNext() }
+            mediaPlayer.setOnCompletionListener { _ -> autoPlayNext() }
             mediaPlayer.prepareAsync()
         }
+    }
+
+    private fun sendUpdateUiBroadcast(musicBean: MusicBean) {
+        val intent = Intent(Actions.MUSIC_START_PLAY)
+        intent.putExtra("music_bean", musicBean)
+        LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(intent)
     }
 
     private fun autoPlayNext() {
@@ -89,9 +103,19 @@ class MusicService : Service(), AnkoLogger {
     override fun onDestroy() {
         super.onDestroy()
         info { "onDestroy" }
+        mediaPlayer.release()
     }
 
     inner class MusicBinder : Binder(), IMusicService {
+
+        override fun callPlayPre() {
+            position--
+            playMusic()
+        }
+
+        override fun callPlayNext() {
+            autoPlayNext()
+        }
 
         override fun callChangePlayMode(): Int {
             playMode = (playMode + 1) % 3
