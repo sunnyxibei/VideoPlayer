@@ -40,6 +40,7 @@ object deps {
         const val glideTransformations = "jp.wasabeef:glide-transformations:$glideTransVersion"
         const val ijkplayer = "com.dou361.ijkplayer:jjdxm-ijkplayer:$ijkplayerVersion"
         const val jiaozivideoplayer = "cn.jzvd:jiaozivideoplayer:$jiaoziVersion"
+        const val httpLogging = "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
     }
 
     object test {

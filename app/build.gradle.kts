@@ -51,5 +51,6 @@ dependencies {
     implementation(deps.others.bottombar)
     implementation(deps.others.glideTransformations)
     implementation(deps.others.ijkplayer)
-    implementation (deps.others.jiaozivideoplayer)
+    implementation(deps.others.jiaozivideoplayer)
+    implementation(deps.others.httpLogging)
 }
