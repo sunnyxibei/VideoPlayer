@@ -1,7 +1,7 @@
 object deps {
 
     const val gradlePluginVersion = "3.3.0-alpha05"
-    const val kotlinVersion = "1.2.51"
+    const val kotlinVersion = "1.2.60"
     const val supportVersion = "27.1.1"
     const val glideVersion = "4.7.1"
     const val okhttpVersion = "3.10.0"
